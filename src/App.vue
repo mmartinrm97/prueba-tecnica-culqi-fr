@@ -1,14 +1,11 @@
 <template>
-  <div class="flex min-h-screen justify-between font-sans">
-  <LoginView/>
+  <div class="flex min-h-screen font-sans bg-gray-100 w-full">
+    <RouterView />
   </div>
 </template>
 
 <script lang="ts" setup>
-
-import LoginView from "@/views/LoginView.vue";
+import { RouterView } from 'vue-router'
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
