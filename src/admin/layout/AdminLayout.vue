@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { RouterLink } from '@/router/link-routes'
+import type { RouterLink } from '@/router/interfaces/link-routes'
 
 import TopBar from '@/admin/components/TopBar.vue'
 import NavBar from '@/admin/components/NavBar.vue'

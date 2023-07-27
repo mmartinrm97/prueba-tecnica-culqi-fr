@@ -127,9 +127,12 @@ const handleLogin = async () => {
 
     const token = response.data.data.token
     authUserStore.setUser(response.data.data.user) // Almacena el usuario en el store
+    authUserStore.setToken(token) // Almacena el usuario en el store
     localStorage.setItem('jwt_token', token)
+    localStorage.setItem('user', JSON.stringify(response.data.data.user))
 
-    await router.push({ name: 'empleados' })
+    await router.push({name: 'empleados'})
+
   } catch (error) {
     if (error.isAxiosError && error.response) {
       // Error de la API con respuesta

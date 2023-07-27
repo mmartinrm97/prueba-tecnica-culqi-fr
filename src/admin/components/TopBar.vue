@@ -5,7 +5,10 @@ import { storeToRefs } from 'pinia'
 const authStore = useAuthUserStore()
 const { user } = storeToRefs(authStore)
 
-const getFirstLetters = (name: string) => {
+const getFirstLetters = (name?: string) => {
+  if (name === undefined ) {
+    return null
+  }
   return name
     .split(' ')
     .map((word) => word.charAt(0))

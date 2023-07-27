@@ -31,10 +31,12 @@
 </template>
 <script lang="ts" setup>
 import CulqiLogoBlackIcon from '@/assets/images/culqi_logo_black.svg'
-import type { RouterLink } from '@/router/link-routes'
+import type { RouterLink } from '@/router/interfaces/link-routes'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import UtilityButton from '@/admin/empleados/components/UtilityButton.vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { useAuthUserStore } from '@/stores/useAuthUserStore'
 
 interface Props {
   links: RouterLink[]
@@ -49,8 +51,11 @@ const isActive = (path: string): boolean => {
 }
 
 const handleLogout = () => {
-  localStorage.removeItem('jwt_token')
+
   router.push({ name: 'login' })
+
+  // Limpiar la store de Pinia
+  useAuthUserStore().logout()
 }
 </script>
 

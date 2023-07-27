@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/LoginView.vue'
 import { adminRoute } from '@/admin/router'
 import { useAuthUserStore } from '@/stores/useAuthUserStore'
-import { storeToRefs } from 'pinia'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,13 +23,13 @@ const router = createRouter({
     //Default
     {
       path: '/:pathMatch(.*)*',
-      redirect: ({ name: 'login' })
+      redirect: { name: 'login' }
     }
   ]
 })
 
 // Agregar el guardia de navegación
-router.beforeEach( (to, from, next) => {
+router.beforeEach((to, from, next) => {
   const authUserStore = useAuthUserStore()
 
   // Verificar si la ruta requiere autenticación
