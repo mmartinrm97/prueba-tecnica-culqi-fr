@@ -10,15 +10,20 @@
           v-for="header in tableHeaders"
           :key="header.id"
           :class="header.name === 'Acciones' ? 'text-right' : 'text-left'"
-          class="px-6 py-6 text-base font-bold capitalize tracking-wider text-gray-500 bg-gray-100"
+          class="px-6 py-6 text-base font-bold capitalize tracking-wider text-gray-600 bg-gray-50"
         >
           {{ header.name }}
         </th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200 bg-white border-primary">
-      <tr v-for="empleado in empleados" :key="empleado.id" class="text-left hover:bg-gray-200">
-        <td class="whitespace-nowrap px-6 py-4">{{ empleado.nombre }}</td>
+    <tbody class="divide-y divide-gray-200 bg-white border-primary ">
+      <tr v-for="empleado in empleados" :key="empleado.id" class="text-left hover:bg-gray-200 font-medium">
+        <td class="whitespace-nowrap px-6 py-4">
+          <div class="flex flex-col">
+            <span class="text-gray-900 font-medium">{{empleado.nombre}}</span>
+            <span class="text-gray-400 ">{{empleado.correo}}</span>
+          </div>
+        </td>
         <td class="whitespace-nowrap px-6 py-4">{{ empleado.cargo }}</td>
         <td class="whitespace-nowrap px-6 py-4">{{ empleado.departamento }}</td>
         <td class="whitespace-nowrap px-6 py-4">{{ empleado.oficina }}</td>
