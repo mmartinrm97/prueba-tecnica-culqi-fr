@@ -5,17 +5,23 @@ import { useEmpleadosStore } from '@/stores/useEmpleadosStore'
 import { storeToRefs } from 'pinia'
 import { computed, watch } from 'vue'
 
-const getEmpleados = async (page: number): Promise<Empleado[]> => {
-  const { data } = await empleadosApi.get<ApiEmpleadoResponse>(`/empleados?page=${page}`)
+const getEmpleados = async (page: number, limit: number): Promise<Empleado[]> => {
+  const { data } = await empleadosApi.get<ApiEmpleadoResponse>(
+    `/empleados?page=${page}&limit=${limit}`
+  )
   return data.data
 }
 
 const useEmpleados = () => {
   const store = useEmpleadosStore()
-  const { currentPage, empleados, totalPages } = storeToRefs(store)
+  const {
+    currentPage,
+    empleados,
+    totalPages,
+    limit,} = storeToRefs(store)
 
-  const { isLoading, data } = useQuery(['empleados?page=', currentPage],
-      () => getEmpleados(currentPage.value)
+  const { isLoading, data } = useQuery(['empleados?page=', currentPage, '?limit=', limit], () =>
+    getEmpleados(currentPage.value, limit.value)
   )
 
   watch(data, (empleados) => {
@@ -28,6 +34,7 @@ const useEmpleados = () => {
     empleados,
     currentPage,
     totalPages,
+    limit,
     //Methods
     getPage(page: number) {
       store.setPage(page)

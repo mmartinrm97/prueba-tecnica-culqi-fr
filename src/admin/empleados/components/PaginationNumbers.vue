@@ -40,8 +40,20 @@
         />
       </button>
     </div>
-    <div class="flex justify-center">Mostrando x registros</div>
+    <div class="flex items-center justify-between space-x-6">
+      <div class="flex justify-center">Mostrando x registros: {{limit}} </div>
+<!--      create a select with options 10,20,30-->
+      <div class="flex items-center">
+        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full " v-model="limit">
+          <option :value="10" selected>Mostrar 10</option>
+          <option :value="20">Mostrar 20</option>
+          <option :value="30">Mostrar 30</option>
+        </select>
+      </div>
+    </div>
   </div>
+
+
 </template>
 
 <script lang="ts" setup>
@@ -50,7 +62,7 @@ import ChevronLeftIcon from '@/assets/icons/chevron-left.svg'
 import ChevronRightIcon from '@/assets/icons/chevron-right.svg'
 
 
-const { getPage, totalPageNumbers, currentPage, totalPages } = useEmpleados()
+const { getPage, totalPageNumbers, currentPage, totalPages,limit } = useEmpleados()
 
 </script>
 
