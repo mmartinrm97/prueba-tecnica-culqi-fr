@@ -24,12 +24,8 @@
         </RouterLink>
       </li>
     </ul>
-    <div class="sticky bottom-4 rounded-lg bg-top py-4">
-      <button @click="handleLogout"
-        class="w-full rounded-lg bg-gray-50 py-3 border-2 border-secondary text-base font-bold text-gray-900 hover:text-white hover:bg-secondary"
-      >
-        Salir
-      </button>
+    <div class="sticky bottom-4 bg-top py-4">
+      <UtilityButton class="w-full" description="Salir" @click="handleLogout" />
     </div>
   </aside>
 </template>
@@ -37,7 +33,8 @@
 import CulqiLogoBlackIcon from '@/assets/images/culqi_logo_black.svg'
 import type { RouterLink } from '@/router/link-routes'
 import { useRoute } from 'vue-router'
-import router from "@/router";
+import router from '@/router'
+import UtilityButton from '@/admin/empleados/components/UtilityButton.vue'
 
 interface Props {
   links: RouterLink[]
@@ -52,12 +49,10 @@ const isActive = (path: string): boolean => {
 }
 
 const handleLogout = () => {
+  localStorage.removeItem('jwt_token')
 
-  localStorage.removeItem("jwt_token");
-
-  router.push({name: 'login'});
-};
-
+  router.push({ name: 'login' })
+}
 </script>
 
 <style scoped></style>
