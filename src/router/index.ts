@@ -8,7 +8,7 @@ const router = createRouter({
     //Public
     {
       path: '/auth/login',
-      name: 'Login',
+      name: 'login',
       component: LoginView
     },
 
@@ -21,7 +21,7 @@ const router = createRouter({
     //Default
     {
       path: '/:pathMatch(.*)*',
-      redirect: () => ({ name: 'Login' })
+      redirect: () => ({ name: 'login' })
     }
   ]
 })

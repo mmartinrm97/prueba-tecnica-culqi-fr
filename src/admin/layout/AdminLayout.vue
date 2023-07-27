@@ -26,7 +26,9 @@ const routeLinks: RouterLink[] = adminRoute
     <TopBar />
     <!--    Main Section-->
     <div class="flex flex-col p-8">
-      <RouterView />
+      <Suspense>
+        <RouterView />
+      </Suspense>
     </div>
   </main>
 </template>

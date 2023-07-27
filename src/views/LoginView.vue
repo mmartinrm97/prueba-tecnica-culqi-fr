@@ -38,7 +38,7 @@
         <h1 class="whitespace-nowrap text-center text-3xl font-bold leading-loose tracking-wide">
           Inicia sesión
         </h1>
-        <form action="">
+        <form @submit.prevent="handleLogin">
           <div class="pt-6">
             <label class="font-medium" for="email"
               >Correo Electrónico <span class="text-red-500">*</span>
@@ -48,6 +48,7 @@
             >
               <input
                 id="email"
+                v-model="email"
                 class="w-full border-0 p-4 font-light focus:outline-none focus:ring-0"
                 name="email"
                 placeholder="Ingresa el correo electrónico"
@@ -64,6 +65,7 @@
             >
               <input
                 id="password"
+                v-model="password"
                 class="w-full border-0 p-4 font-light focus:outline-none focus:ring-0"
                 name="password"
                 placeholder="Ingresa la contraseña"
@@ -97,6 +99,31 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from 'vue'
+import empleadosApi from '@/api/empleadosApi'
+import router from '@/router'
+
+const email = ref('c.quispe@culqi.com')
+const password = ref('admin123')
+
+const handleLogin = async () => {
+  try {
+    const response = await empleadosApi.post('/auth/login', {
+      correo: email.value,
+      password: password.value
+    })
+
+    const token = response.data.data.token
+    await localStorage.setItem('jwt_token', token)
+
+
+    await router.push({ name: 'empleados' })
+  } catch (error) {
+
+    console.error('Error de inicio de sesión:', error.message)
+  }
+}
+</script>
 
 <style scoped></style>
