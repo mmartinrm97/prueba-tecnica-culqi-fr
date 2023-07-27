@@ -48,23 +48,25 @@
 </template>
 <script lang="ts" setup>
 // import type { Empleado } from '@/admin/interfaces/empleado'
-
 import EyeIcon from '@/assets/icons/eye.svg'
 import EditIcon from '@/assets/icons/edit.svg'
 import TrashIcon from '@/assets/icons/trash.svg'
 import { useEmpleadosStore } from '@/admin/composables/useEmpleados'
-import {onMounted} from "vue";
-import {storeToRefs} from "pinia";
-// import empleadosApi from '@/api/empleadosApi'
-// import { ref } from 'vue'
+import { onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 
 onMounted(async () => {
   await empleadoStore.fetchEmpleados()
 })
 
-const empleadoStore =  useEmpleadosStore()
-const { empleados, isLoading, hasError, errorMessage, count } = storeToRefs(empleadoStore)
+const empleadoStore = useEmpleadosStore()
 
+const {
+  empleados,
+  isLoading,
+  hasError,
+  errorMessage
+} = storeToRefs(empleadoStore)
 
 const tableHeaders = [
   {

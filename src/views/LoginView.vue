@@ -103,25 +103,30 @@
 import { ref } from 'vue'
 import empleadosApi from '@/api/empleadosApi'
 import router from '@/router'
+import type { APIError } from '@/api/interfaces/loginApi'
+import type { AxiosError } from 'axios'
 
 const email = ref('c.quispe@culqi.com')
 const password = ref('admin123')
+const error = ref<APIError | AxiosError | null>(null)
 
 const handleLogin = async () => {
   try {
-    const response = await empleadosApi.post('/auth/login', {
+    const response = await empleadosApi.post('/auth/logins', {
       correo: email.value,
       password: password.value
     })
 
     const token = response.data.data.token
-    await localStorage.setItem('jwt_token', token)
-
+    localStorage.setItem('jwt_token', token)
 
     await router.push({ name: 'empleados' })
-  } catch (error) {
-
-    console.error('Error de inicio de sesión:', error.message)
+  } catch (error: AxiosError<APIError>) {
+    if (error.response && error.response.data.status === 'error') {
+      console.error('Error de inicio de sesión:', error.response.data.message)
+    } else {
+      console.error('Error de inicio de sesión:', error.message)
+    }
   }
 }
 </script>
