@@ -1,5 +1,5 @@
 <template>
-  <section class="flex space-x-6">
+  <div class="flex space-x-6">
     <!--          Search input-->
     <div class="relative w-3/4">
         <span class="pointer-events-none absolute inset-y-0 flex items-center px-3">
@@ -23,7 +23,7 @@
         <option value="DE">Germany</option>
       </select>
     </div>
-  </section>
+  </div>
 </template>
 <script lang="ts" setup>
 import SearchIcon from '@/assets/icons/search.svg'
