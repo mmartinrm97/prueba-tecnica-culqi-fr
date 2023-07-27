@@ -9,7 +9,7 @@ import BriefCaseIcon from '@/assets/icons/briefcase.svg'
 
 export const adminRoute: RouteRecordRaw = {
   path: '/admin',
-  redirect: 'admin/empleados',
+  redirect: { name: 'empleados' },
   component: AdminLayout,
   children: [
     {

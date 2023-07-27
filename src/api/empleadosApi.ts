@@ -1,12 +1,13 @@
 import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
+const BASE_URL =  import.meta.env.VITE_API_BASE_URL
 
 const empleadosApi: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  baseURL: BASE_URL,
+  // withCredentials: true,
 })
+
+empleadosApi.defaults.headers.common['Content-Type'] = 'application/json';
 
 // Agregar el token JWT al header de las peticiones
 empleadosApi.interceptors.request.use((config: InternalAxiosRequestConfig) => {

@@ -53,6 +53,7 @@
                 name="email"
                 placeholder="Ingresa el correo electrónico"
                 type="text"
+                autofocus
               />
             </div>
           </div>
@@ -73,9 +74,9 @@
               />
             </div>
 
-            <div class="pt-6 text-error flex items-center" v-if="error">
+            <div v-if="apiError" class="pt-6 text-error flex items-center">
               <ErrorIcon class="fill-current h-5 w-5" />
-              <span class="ml-2">{{ error }}</span>
+              <span class="ml-2">{{ apiError }}</span>
             </div>
           </div>
           <div class="pt-8">
@@ -108,34 +109,35 @@
 import { ref } from 'vue'
 import empleadosApi from '@/api/empleadosApi'
 import router from '@/router'
-// import type { APIError } from '@/api/interfaces/loginApi'
-// import type { AxiosError } from 'axios'
 import ErrorIcon from '@/assets/icons/error.svg'
-
+import type { APILoginErrorResponse, APILoginSuccessResponse } from '@/api/interfaces/loginApi'
+import { useAuthUserStore } from '@/stores/useAuthUserStore'
 
 const email = ref('c.quispe@culqi.com')
 const password = ref('admin123')
-const error = ref<string | null>(null)
+const apiError = ref<string | null>(null)
 
 const handleLogin = async () => {
+  const authUserStore = useAuthUserStore()
   try {
-    const response = await empleadosApi.post('/auth/login', {
+    const response = await empleadosApi.post<APILoginSuccessResponse>('/auth/login', {
       correo: email.value,
       password: password.value
     })
 
     const token = response.data.data.token
+    authUserStore.setUser(response.data.data.user) // Almacena el usuario en el store
     localStorage.setItem('jwt_token', token)
 
     await router.push({ name: 'empleados' })
-  } catch (e: any) {
-  
-    if (e.response && e.response.data.status === 'error') {
-      error.value = e.response.data.message
-      console.error('Error de inicio de sesión:', e.response.data.message)
+  } catch (error) {
+    if (error.isAxiosError && error.response) {
+      // Error de la API con respuesta
+      apiError.value = (error.response.data as APILoginErrorResponse).message
+      console.error('Error de inicio de sesión:', apiError.value)
     } else {
-      error.value = e.message
-      console.error('Error de inicio de sesión:', e.message)
+      // Error de red o error no relacionado con la API
+      console.error('Error de inicio de sesión (no relacionado):', error.message)
     }
   }
 }
