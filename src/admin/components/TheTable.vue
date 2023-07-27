@@ -1,9 +1,7 @@
 <template>
-  <div v-if="isLoading">
-    Loading
-  </div>
+  <div v-if="isLoading">Loading</div>
   <div v-else-if="hasError">
-    {{errorMessage}}
+    {{ errorMessage }}
   </div>
   <table v-else class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
     <thead>
@@ -54,13 +52,19 @@
 import EyeIcon from '@/assets/icons/eye.svg'
 import EditIcon from '@/assets/icons/edit.svg'
 import TrashIcon from '@/assets/icons/trash.svg'
-import useEmpleados from "@/admin/composables/useEmpleados";
+import { useEmpleadosStore } from '@/admin/composables/useEmpleados'
+import {onMounted} from "vue";
+import {storeToRefs} from "pinia";
 // import empleadosApi from '@/api/empleadosApi'
 // import { ref } from 'vue'
 
-// const { data:{data: empleados} } = await empleadosApi.get<Empleado[]>('/empleados')
+onMounted(async () => {
+  await empleadoStore.fetchEmpleados()
+})
 
-const { empleados, isLoading, hasError, errorMessage } = useEmpleados()
+const empleadoStore =  useEmpleadosStore()
+const { empleados, isLoading, hasError, errorMessage, count } = storeToRefs(empleadoStore)
+
 
 const tableHeaders = [
   {
