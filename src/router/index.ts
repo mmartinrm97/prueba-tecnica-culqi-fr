@@ -20,10 +20,13 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
 
-    //Default
+    // Redirigir a la vista "empleados" cuando la ruta es inválida y el usuario está autenticado
     {
       path: '/:pathMatch(.*)*',
-      redirect: { name: 'login' }
+      redirect: (to) => {
+        const authUserStore = useAuthUserStore()
+        return authUserStore.authenticated() ? {name: 'empleados'} : {name: 'login'}
+      }
     }
   ]
 })
