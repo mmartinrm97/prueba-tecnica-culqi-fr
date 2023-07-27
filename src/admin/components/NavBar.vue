@@ -50,7 +50,6 @@ const isActive = (path: string): boolean => {
 
 const handleLogout = () => {
   localStorage.removeItem('jwt_token')
-
   router.push({ name: 'login' })
 }
 </script>
