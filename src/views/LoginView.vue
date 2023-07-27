@@ -113,8 +113,8 @@ import ErrorIcon from '@/assets/icons/error.svg'
 import type { ApiErrorResponse, APILoginSuccessResponse } from '@/api/interfaces/responseApi'
 import { useAuthUserStore } from '@/stores/useAuthUserStore'
 
-const email = ref('c.quispe@culqi.com')
-const password = ref('admin123')
+const email = ref('')
+const password = ref('')
 const apiError = ref<string | null>(null)
 
 const handleLogin = async () => {
