@@ -32,6 +32,7 @@
         class="flex h-8 w-8 items-center border-2 rounded-lg justify-center ml-6"
         @click="getPage(currentPage + 1)"
       >
+
         <ChevronRightIcon
           :class="[
             currentPage === totalPages ? 'text-gray-200' : 'text-secondary hover:text-secondary'
@@ -41,10 +42,15 @@
       </button>
     </div>
     <div class="flex items-center justify-between space-x-6">
-      <div class="flex justify-center">Mostrando x registros: {{limit}} </div>
-<!--      create a select with options 10,20,30-->
+      <div class="flex justify-center">
+        Mostrando {{ startRecord }} a {{ endRecord }} de {{ totalEmpleados }} registros
+      </div>
+      <!--      create a select with options 10,20,30-->
       <div class="flex items-center">
-        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full " v-model="limit">
+        <select
+          v-model="limit"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full"
+        >
           <option :value="10" selected>Mostrar 10</option>
           <option :value="20">Mostrar 20</option>
           <option :value="30">Mostrar 30</option>
@@ -52,17 +58,24 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script lang="ts" setup>
 import useEmpleados from '@/admin/empleados/composables/useEmpleados'
 import ChevronLeftIcon from '@/assets/icons/chevron-left.svg'
 import ChevronRightIcon from '@/assets/icons/chevron-right.svg'
+import {computed, watch} from 'vue'
+
+const { getPage, totalPageNumbers, currentPage, totalPages, limit, totalEmpleados } = useEmpleados()
 
 
-const { getPage, totalPageNumbers, currentPage, totalPages,limit } = useEmpleados()
+const startRecord = computed(() => (currentPage.value - 1) * limit.value + 1)
+const endRecord = computed(() => Math.min(currentPage.value * limit.value, totalEmpleados.value))
+
+// Watcher para el cambio en el valor del select
+watch(limit, () => {
+  currentPage.value = 1
+})
 
 </script>
 
