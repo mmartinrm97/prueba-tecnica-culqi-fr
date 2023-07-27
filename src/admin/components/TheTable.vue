@@ -51,7 +51,7 @@
 import EyeIcon from '@/assets/icons/eye.svg'
 import EditIcon from '@/assets/icons/edit.svg'
 import TrashIcon from '@/assets/icons/trash.svg'
-import { useEmpleadosStore } from '@/admin/composables/useEmpleados'
+import { useEmpleadosStore } from '@/admin/store/useEmpleadosStore'
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 

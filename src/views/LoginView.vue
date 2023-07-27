@@ -72,6 +72,11 @@
                 type="password"
               />
             </div>
+
+            <div class="pt-6 text-error flex items-center" v-if="error">
+              <ErrorIcon class="fill-current h-5 w-5" />
+              <span class="ml-2">{{ error }}</span>
+            </div>
           </div>
           <div class="pt-8">
             <button
@@ -103,16 +108,18 @@
 import { ref } from 'vue'
 import empleadosApi from '@/api/empleadosApi'
 import router from '@/router'
-import type { APIError } from '@/api/interfaces/loginApi'
-import type { AxiosError } from 'axios'
+// import type { APIError } from '@/api/interfaces/loginApi'
+// import type { AxiosError } from 'axios'
+import ErrorIcon from '@/assets/icons/error.svg'
+
 
 const email = ref('c.quispe@culqi.com')
 const password = ref('admin123')
-const error = ref<APIError | AxiosError | null>(null)
+const error = ref<string | null>(null)
 
 const handleLogin = async () => {
   try {
-    const response = await empleadosApi.post('/auth/logins', {
+    const response = await empleadosApi.post('/auth/login', {
       correo: email.value,
       password: password.value
     })
@@ -121,11 +128,14 @@ const handleLogin = async () => {
     localStorage.setItem('jwt_token', token)
 
     await router.push({ name: 'empleados' })
-  } catch (error: AxiosError<APIError>) {
-    if (error.response && error.response.data.status === 'error') {
-      console.error('Error de inicio de sesión:', error.response.data.message)
+  } catch (e: any) {
+  
+    if (e.response && e.response.data.status === 'error') {
+      error.value = e.response.data.message
+      console.error('Error de inicio de sesión:', e.response.data.message)
     } else {
-      console.error('Error de inicio de sesión:', error.message)
+      error.value = e.message
+      console.error('Error de inicio de sesión:', e.message)
     }
   }
 }
