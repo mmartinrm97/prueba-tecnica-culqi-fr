@@ -35,7 +35,6 @@ import type { RouterLink } from '@/router/interfaces/link-routes'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import UtilityButton from '@/admin/empleados/components/UtilityButton.vue'
-import { useQueryClient } from '@tanstack/vue-query'
 import { useAuthUserStore } from '@/stores/useAuthUserStore'
 
 interface Props {
@@ -51,7 +50,6 @@ const isActive = (path: string): boolean => {
 }
 
 const handleLogout = () => {
-
   router.push({ name: 'login' })
 
   // Limpiar la store de Pinia
