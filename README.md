@@ -33,6 +33,12 @@ npm install
 npm run dev
 ```
 
+### Create a env. file and add this variable with the following value
+
+```dotenv
+VITE_API_BASE_URL="https://fepruebatecnicaculqi-backend-production.up.railway.app"
+```
+
 ### Type-Check, Compile and Minify for Production
 
 ```sh
