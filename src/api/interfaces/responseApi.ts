@@ -1,7 +1,8 @@
-export interface APILoginErrorResponse {
+export interface ApiErrorResponse {
     status:  string;
     message: string;
 }
+
 export interface APILoginSuccessResponse {
     status: string;
     data:   Data;

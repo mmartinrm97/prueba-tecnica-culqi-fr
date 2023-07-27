@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 
-import type { ApiResponse, Empleado } from '@/admin/interfaces/empleado'
+import type { ApiEmpleadoResponse, Empleado } from '@/admin/empleados/interfaces/empleado'
 import empleadosApi from '@/api/empleadosApi'
 
 const empleados = ref<Empleado[]>([])
@@ -12,7 +12,7 @@ const getEmpleados = async (): Promise<Empleado[]> => {
   if (empleados.value.length > 0) return empleados.value
 
   try {
-    const { data } = await empleadosApi.get<ApiResponse>('/empleados')
+    const { data } = await empleadosApi.get<ApiEmpleadoResponse>('/empleados')
     return data.data
   } catch (error) {
     hasError.value = true

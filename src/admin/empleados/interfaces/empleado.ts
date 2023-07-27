@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export interface ApiEmpleadoResponse {
   status: string
   data: Empleado[]
   total: number
@@ -10,7 +10,7 @@ export interface Empleado {
   correo: string
   cargo: string
   departamento: string
-  oficina: Oficina
+  oficina: string
   estadoCuenta: EstadoCuenta
 }
 
@@ -19,6 +19,6 @@ export enum EstadoCuenta {
   Desactivada = 'Desactivada'
 }
 
-export enum Oficina {
-  CulqiOffice = 'Culqi Office'
-}
+// export enum Oficina {
+//   CulqiOffice = 'Culqi Office'
+// }

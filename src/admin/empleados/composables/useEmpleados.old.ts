@@ -1,6 +1,6 @@
 import {onMounted, ref} from 'vue'
 
-import type { ApiResponse, Empleado } from '@/admin/interfaces/empleado'
+import type { ApiEmpleadoResponse, Empleado } from '@/admin/empleados/interfaces/empleado'
 import empleadosApi from '@/api/empleadosApi'
 import axios from 'axios'
 
@@ -21,7 +21,7 @@ export const useEmpleadosOld = () => {
     isLoading.value = true
 
     try {
-      const { data } = await empleadosApi.get<ApiResponse>('/empleados')
+      const { data } = await empleadosApi.get<ApiEmpleadoResponse>('/empleados')
       empleados.value = data.data
       isLoading.value = false
     } catch (error) {

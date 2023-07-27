@@ -110,7 +110,7 @@ import { ref } from 'vue'
 import empleadosApi from '@/api/empleadosApi'
 import router from '@/router'
 import ErrorIcon from '@/assets/icons/error.svg'
-import type { APILoginErrorResponse, APILoginSuccessResponse } from '@/api/interfaces/loginApi'
+import type { ApiErrorResponse, APILoginSuccessResponse } from '@/api/interfaces/responseApi'
 import { useAuthUserStore } from '@/stores/useAuthUserStore'
 
 const email = ref('c.quispe@culqi.com')
@@ -133,7 +133,7 @@ const handleLogin = async () => {
   } catch (error) {
     if (error.isAxiosError && error.response) {
       // Error de la API con respuesta
-      apiError.value = (error.response.data as APILoginErrorResponse).message
+      apiError.value = (error.response.data as ApiErrorResponse).message
       console.error('Error de inicio de sesión:', apiError.value)
     } else {
       // Error de red o error no relacionado con la API
